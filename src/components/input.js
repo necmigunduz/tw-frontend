@@ -4,11 +4,26 @@ import PropTypes from 'prop-types';
 
 export default function Input(props) {
   const [options, setOptions] = useState([]);
-  const [score, setScore] = useState(0);
+  const [values, setValues] = useState([
+    {id:0, value:'0'},
+    {id:1, value:''},
+    {id:2, value:''},
+    {id:3, value:''},
+    {id:4, value:''},
+    {id:5, value:''},
+    {id:6, value:''},
+    {id:7, value:''},
+    {id:8, value:''},
+    {id:9, value:''},
+    {id:10, value:''},
+    {id:11, value:''},
+    {id:12, value:''},
+    {id:13, value:''},
+    {id:14, value:''},
+  ])
 
   const getOptions = async (q_id) => {
     let os  = await FetchOptions(q_id);
-    console.log(os)
     setOptions(os);
   };
 
@@ -16,10 +31,11 @@ export default function Input(props) {
     getOptions(props.qId)
   }, [props.qId]);
   
-  const addScore = (newScore) => {
-    newScore += score
-    setScore(newScore)
-    console.log(score)
+  const scoreHandler = (e, id) => {
+    let newValue = [...values]
+    newValue[id].value = e.target.value
+    setValues(newValue)
+    console.log(values)
   };
 
   return (
@@ -27,11 +43,11 @@ export default function Input(props) {
         {
             options.map((option) => {
                 return  (
-                    <>
-                        <input type="radio" className="action" name={option.question_id} id="track" value="track" onSelect={addScore(option.score)}/>
+                    <div key={option.id}>
+                        <input type="radio" key={option.id} className="action" name={option.question_id} id="track" value={option.score} onChange={(e) => scoreHandler(e, option.question_id)} />
                         <label htmlFor="track">{option.o_text}</label>
                         <br />
-                    </>
+                    </div>
                 )
             })
         }

@@ -24,7 +24,7 @@ export default function Display() {
                     <li key={question.id}>
                         <fieldset>
                             <legend>{question.q_text}</legend>
-                            <Input qId={question.id} key={question.id}/>
+                            <Input qId={question.id} />
                         </fieldset>
                     </li>
                 )
